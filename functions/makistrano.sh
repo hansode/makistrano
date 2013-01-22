@@ -50,3 +50,8 @@ function makistrano_cli() {
 
   makistrano_xnode ${name} ${args}
 }
+
+# CLI
+if [[ "${BASH_SOURCE[0]##*/}" == "makistrano" ]]; then
+  makistrano_cli $*
+fi

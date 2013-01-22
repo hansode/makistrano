@@ -13,7 +13,7 @@ branch=master
 # role
 
 role_development() {
-  nodes() { echo localhost; }
+  nodes() { echo ci02.datahotel; }
 }
 
 role_test() {
