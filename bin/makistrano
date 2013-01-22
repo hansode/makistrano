@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# requireqs:
+#  bash
+#
+# import:
+#
+#set -e
+
+## variables
+
+### read-only variables
+
+readonly abs_dirname=$(cd ${BASH_SOURCE[0]%/*} && pwd)
+readonly makistrano_lib_path=${abs_dirname}/../functions
+
+### include files
+
+. ${makistrano_lib_path}/makistrano.sh
+
+## main
+
+makistrano_cli $*

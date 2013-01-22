@@ -1,0 +1,104 @@
+# -*-Shell-script-*-
+#
+# [role]             [task]
+# [role] [namespace]:[task]
+#
+
+# set
+
+repository=git@github.com:hansode/makistrano.git
+deploy_to=/home/hansode/apps/makistrano
+branch=master
+
+# role
+
+role_development() {
+  nodes() { echo localhost; }
+}
+
+role_test() {
+  nodes() { :; }
+}
+
+role_production() {
+  nodes() { :; }
+}
+
+# namespace:task
+
+namespace_test() {
+  task_echo() {
+    local host=$1; shift
+
+    # local
+    echo $*
+    # remote
+    ssh ${host} echo $*
+  }
+
+  task_whoami() {
+    local host=$1; shift
+
+    # local
+    whoami
+    # remote
+    ssh ${host} whoami
+  }
+
+  task_uptime() {
+    local host=$1; shift
+
+    # local
+    uptime
+    # remote
+    ssh ${host} uptime
+  }
+}
+
+namespace_deploy() {
+  task_setup() {
+    local host=$1; shift
+
+    ssh ${host} "git clone ${repository} ${deploy_to} && git checkout -q ${branch}"
+  }
+
+  task_update() {
+    local host=$1; shift
+
+    ssh ${host} "cd ${deploy_to} && git fetch origin && git checkout -q ${branch} && git submodule update --init"
+  }
+}
+
+namespace_server() {
+  task_start() {
+    local host=$1; shift
+  }
+
+  task_stop() {
+    local host=$1; shift
+  }
+
+  task_restart() {
+    local host=$1; shift
+  }
+
+  task_status() {
+    local host=$1; shift
+  }
+}
+
+# task
+
+task_whoami() {
+  local host=$1; shift
+
+  whoami
+  ssh ${host} whoami
+}
+
+task_date() {
+  local host=$1; shift
+
+  date
+  ssh ${host} date
+}
