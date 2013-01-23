@@ -14,6 +14,7 @@
 
 function setUp() {
   function ssh() { echo ssh $*; }
+  function git() { echo git $*; }
 }
 
 function test_makistrano_cli_namespace_test() {

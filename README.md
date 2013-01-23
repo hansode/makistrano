@@ -9,7 +9,7 @@ It uses a simple DSL that allows you to define tasks, which may be applied to ma
 Getting Started
 ---------------
 
-### Creating `Makistranofile`
+### Creating `Makifile`
 
 ```
 role_development() {
@@ -94,7 +94,7 @@ $ cd    /opt/hansode
 $ git clone https://github.com/hansode/makistrano.git
 ```
 
-Makistranofile
---------------
+Makifile
+--------
 
-The Makistranofile is a Bash file used to configure Makistrano on a per-project basis.
+The Makifile is a Bash file used to configure Makistrano on a per-project basis.

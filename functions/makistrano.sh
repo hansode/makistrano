@@ -41,7 +41,7 @@ function makistrano_cli() {
   [[ -n "${role}"   ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}"   ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
-  makistrano_load_config ${config:-./Makistranofile}
+  makistrano_load_config ${config:-./Makifile}
   role_${role} >/dev/null || { echo "[ERROR] undefined role : ${role} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ "${name}" == "${namespace}" ]] || {
     # named task
@@ -52,6 +52,6 @@ function makistrano_cli() {
 }
 
 # CLI
-if [[ "${BASH_SOURCE[0]##*/}" == "makistrano" ]]; then
+if [[ "${BASH_SOURCE[0]##*/}" == "maki" ]]; then
   makistrano_cli $*
 fi
