@@ -8,7 +8,7 @@
 
 function makistrano_node() {
   local node=$1 task=$2; shift; shift
-  local args="$*"
+  local args="$@"
   [[ -n "${node}" ]] || { echo "[ERROR] undefined node : ${node} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}" ]] || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f task_${task} >/dev/null || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
@@ -19,7 +19,7 @@ function makistrano_node() {
 
 function makistrano_xnode() {
   local task=$1; shift
-  local args="$*"
+  local args="$@"
   [[ -n "${task}" ]] || { echo "[ERROR] Invalid argument: task:${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f nodes >/dev/null || return 0
 
@@ -37,7 +37,7 @@ function makistrano_load_config() {
 
 function makistrano_cli() {
   local role=$1 task=$2; shift; shift
-  local args="$*"
+  local args="$@"
   local namespace=${task%%:*} name=${task##*:}
   [[ -n "${role}"   ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}"   ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
