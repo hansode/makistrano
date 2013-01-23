@@ -1,4 +1,4 @@
-# -*-Shell-script-*-
+#!/bin/bash
 #
 # description:
 #
