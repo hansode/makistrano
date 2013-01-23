@@ -13,7 +13,8 @@ function makistrano_node() {
   [[ -n "${task}" ]] || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f task_${task} >/dev/null || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
-  task_${task} ${node} ${args}
+  # make sure to close value scope for each tasks
+  (task_${task} ${node} ${args})
 }
 
 function makistrano_xnode() {
