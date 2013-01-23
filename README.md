@@ -56,32 +56,32 @@ namespace_iptables() {
 }
 ```
 
-### Running `makistrano`
+### Running `maki`
 
 ```
-$ makistrano development hostname
+$ maki development hostname
 
-$ makistrano development iptables:status
-$ makistrano development iptables:stop
-$ makistrano development iptables:start
-$ makistrano development iptables:restart
+$ maki development iptables:status
+$ maki development iptables:stop
+$ maki development iptables:start
+$ maki development iptables:restart
 ```
 
 ```
-$ makistrano production hostname
+$ maki production hostname
 
-$ makistrano production iptables:status
-$ makistrano production iptables:stop
-$ makistrano production iptables:start
-$ makistrano production iptables:restart
+$ maki production iptables:status
+$ maki production iptables:stop
+$ maki production iptables:start
+$ maki production iptables:restart
 ```
 
 Usage
 -----
 
 ```
-$ makistrano [role] [task]
-$ makistrano [role] [namespace:task]
+$ maki [role] [task]
+$ maki [role] [namespace:task]
 ```
 
 Installation
