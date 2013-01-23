@@ -7,13 +7,13 @@
 # set
 
 repository=git@github.com:hansode/makistrano.git
-deploy_to=/home/hansode/apps/makistrano
+deploy_to=${HOME}/apps/makistrano
 branch=master
 
 # role
 
 role_development() {
-  nodes() { echo ci02.datahotel; }
+  nodes() { echo localhost; }
 }
 
 role_test() {
@@ -59,13 +59,13 @@ namespace_deploy() {
   task_setup() {
     local host=$1; shift
 
-    ssh ${host} "git clone ${repository} ${deploy_to} && git checkout -q ${branch}"
+    [[ -d ${deploy_to} ]] || { git clone ${repository} ${deploy_to} && git checkout ${branch}; }
   }
 
   task_update() {
     local host=$1; shift
 
-    ssh ${host} "cd ${deploy_to} && git fetch origin && git checkout -q ${branch} && git submodule update --init"
+    cd ${deploy_to} && pwd && git fetch origin && git checkout ${branch} && git submodule update --init
   }
 }
 
