@@ -1,6 +1,8 @@
 Makistrano
 ==========
 
+[![Build Status](https://travis-ci.org/hansode/makistrano.png)](https://travis-ci.org/hansode/makistrano)
+
 Makistrano is a kind of bash implementation of [Capistrano](https://github.com/capistrano/capistrano).
 
 Makistrano is a utility and framework for executing commands on multiple remote machines, via SSH.
