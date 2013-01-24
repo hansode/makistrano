@@ -65,7 +65,11 @@ namespace_deploy() {
   task_update() {
     local host=$1; shift
 
-    cd ${deploy_to} && pwd && git fetch origin && git checkout ${branch} && git submodule update --init
+    [[ -d ${deploy_to} ]] && {
+      cd ${deploy_to} && pwd && git fetch origin && git checkout ${branch} && git submodule update --init
+    } || {
+      echo "[WARN] directory not found : ${deploy_to}"
+    }
   }
 }
 
