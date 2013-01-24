@@ -38,23 +38,32 @@ function makistrano_load_config() {
   . ${file_path}
 }
 
+function makistrano_eval() {
+  local role=$1 namespace=$2 task=$3
+
+  MAKISTRANO_ROLE=${role}
+  makistrano_load_config ${MAKISTRANO_MAKIFILE}
+
+  declare -f role_${role} >/dev/null || { echo "[ERROR] undefined role : ${role} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
+  role_${role}
+
+  [[ -z "${namespace}" ]] || {
+    declare -f namespace_${namespace} >/dev/null || { echo "[ERROR] undefined namespace : ${namespace} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
+    namespace_${namespace}
+  }
+}
+
 function makistrano_cli() {
   local role=$1 task=$2; shift; shift
+  local namespace=${task%%:*}; task=${task##*:}
   local args="$@"
-  local namespace=${task%%:*} name=${task##*:}
   [[ -n "${role}"   ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}"   ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
-  MAKISTRANO_ROLE=${role}
+  [[ "${task}" == "${namespace}" ]] && namespace= || :
 
-  makistrano_load_config ${MAKISTRANO_MAKIFILE}
-  role_${role} >/dev/null || { echo "[ERROR] undefined role : ${role} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
-  [[ "${name}" == "${namespace}" ]] || {
-    # named task
-    namespace_${namespace} >/dev/null || { echo "[ERROR] undefined namespace : ${namespace} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
-  }
-
-  makistrano_xnode ${name} ${args}
+  makistrano_eval ${role} "${namespace}" "${task}" || return 1
+  makistrano_xnode ${task} ${args}
 }
 
 # CLI
