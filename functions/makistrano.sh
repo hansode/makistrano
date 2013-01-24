@@ -26,6 +26,7 @@ function makistrano_xnode() {
   [[ -n "${task}" ]] || { echo "[ERROR] Invalid argument: task:${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f nodes >/dev/null || return 0
 
+  local node
   for node in $(nodes); do
     makistrano_node ${node} ${task} ${args}
   done
