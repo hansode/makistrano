@@ -27,6 +27,11 @@ function test_makistrano_cli() {
   assertEquals $? 0
 }
 
+function test_makistrano_cli_MAKISTRANO_ROLE() {
+  makistrano_cli defined_role defined_task >/dev/null
+  assertEquals ${MAKISTRANO_ROLE} defined_role
+}
+
 function test_makistrano_cli_undefined_role() {
   makistrano_cli undefined_role defined_task 2>/dev/null
   assertNotEquals $? 0
