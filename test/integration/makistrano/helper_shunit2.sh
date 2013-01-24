@@ -19,4 +19,4 @@ makifile_path=${abs_dirname}/../../../examples/Makifile
 
 ## group functions
 
-config=${makifile_path}
+MAKISTRANO_MAKIFILE=${makifile_path}

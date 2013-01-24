@@ -6,6 +6,9 @@
 #  bash
 #
 
+MAKISTRANO_MAKIFILE=${MAKISTRANO_MAKIFILE:-${PWD}/Makifile}
+MAKISTRANO_ROLE=
+
 function makistrano_node() {
   local node=$1 task=$2; shift; shift
   local args="$@"
@@ -42,7 +45,9 @@ function makistrano_cli() {
   [[ -n "${role}"   ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}"   ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
-  makistrano_load_config ${config:-./Makifile}
+  MAKISTRANO_ROLE=${role}
+
+  makistrano_load_config ${MAKISTRANO_MAKIFILE}
   role_${role} >/dev/null || { echo "[ERROR] undefined role : ${role} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ "${name}" == "${namespace}" ]] || {
     # named task
