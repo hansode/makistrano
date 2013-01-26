@@ -19,8 +19,8 @@ function setUp() {
 
 function test_makistrano_cli_namespace_test() {
   local task
-  for task in echo whoami uptime; do
-    makistrano_cli development test:${task} >/dev/null
+  for task in whoami uptime; do
+    makistrano_cli solo test:${task} >/dev/null
     assertEquals $? 0
   done
 }
@@ -28,7 +28,7 @@ function test_makistrano_cli_namespace_test() {
 function test_makistrano_cli_namespace_deploy() {
   local task
   for task in setup update; do
-    makistrano_cli development deploy:${task} >/dev/null
+    makistrano_cli solo deploy:${task} >/dev/null
     assertEquals $? 0
   done
 }
@@ -36,18 +36,18 @@ function test_makistrano_cli_namespace_deploy() {
 function test_makistrano_cli_namespace_server() {
   local task
   for task in start stop restart status; do
-    makistrano_cli development server:${task} >/dev/null
+    makistrano_cli solo server:${task} >/dev/null
     assertEquals $? 0
   done
 }
 
 function test_makistrano_cli_task_whoami() {
-  makistrano_cli development whoami >/dev/null
+  makistrano_cli solo whoami >/dev/null
   assertEquals $? 0
 }
 
 function test_makistrano_cli_task_date() {
-  makistrano_cli development date >/dev/null
+  makistrano_cli solo date >/dev/null
   assertEquals $? 0
 }
 

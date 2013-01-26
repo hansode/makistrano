@@ -12,28 +12,28 @@ branch=master
 
 # role
 
-role_development() {
+role_solo() {
   nodes() { echo localhost; }
 }
 
 role_test() {
-  nodes() { :; }
+  nodes() { echo localhost; }
 }
 
 role_production() {
-  nodes() { :; }
+  nodes() { curl http://example.com/deploy-servers/production; }
 }
 
 # namespace:task
 
 namespace_test() {
-  task_echo() {
+  task_shell() {
     local host=$1; shift
 
     # local
-    echo $*
+    eval $*
     # remote
-    ssh ${host} echo $*
+    ssh ${host} $*
   }
 
   task_whoami() {
