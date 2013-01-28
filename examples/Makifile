@@ -4,16 +4,22 @@
 # [role] [namespace]:[task]
 #
 
+export LANG=C
+export LC_ALL=C
+
 # set
 
-repository=git@github.com:hansode/makistrano.git
+repository=https://github.com/hansode/makistrano.git
 deploy_to=${HOME}/apps/makistrano
 branch=master
+
+ssh() { local host=$1; shift; $(which ssh) -t -q ${host} $@; }
 
 # role
 
 role_solo() {
   nodes() { echo localhost; }
+  ssh() { shift; eval $@; }
 }
 
 role_test() {
