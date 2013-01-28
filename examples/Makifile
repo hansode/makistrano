@@ -19,6 +19,7 @@ ssh() { local host=$1; shift; $(which ssh) -t -q ${host} $@; }
 
 role_solo() {
   nodes() { echo localhost; }
+  ssh() { shift; eval $@; }
 }
 
 role_test() {
