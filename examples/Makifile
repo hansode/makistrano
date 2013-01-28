@@ -4,6 +4,9 @@
 # [role] [namespace]:[task]
 #
 
+export LANG=C
+export LC_ALL=C
+
 # set
 
 repository=https://github.com/hansode/makistrano.git
