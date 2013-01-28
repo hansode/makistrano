@@ -6,7 +6,7 @@
 
 # set
 
-repository=git@github.com:hansode/makistrano.git
+repository=https://github.com/hansode/makistrano.git
 deploy_to=${HOME}/apps/makistrano
 branch=master
 
