@@ -10,6 +10,8 @@ repository=https://github.com/hansode/makistrano.git
 deploy_to=${HOME}/apps/makistrano
 branch=master
 
+ssh() { local host=$1; shift; $(which ssh) -t -q ${host} $@; }
+
 # role
 
 role_solo() {
