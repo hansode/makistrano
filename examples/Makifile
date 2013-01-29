@@ -17,13 +17,22 @@ ssh() { local host=$1; shift; $(which ssh) -t -q ${host} $@; }
 
 # role
 
-role_solo() {
-  nodes() { echo localhost; }
-  ssh() { shift; eval $@; }
-}
-
 role_test() {
   nodes() { echo localhost; }
+  ssh() { echo ssh $@; }
+}
+
+role_solo() {
+  nodes() { echo localhost; }
+  ssh() { shift; [[ $# == 0 ]] && { eval $SHELL </dev/stdin; } || { eval $@; }; }
+}
+
+role_development() {
+  nodes() { curl http://example.com/deploy-servers/development; }
+}
+
+role_staging() {
+  nodes() { curl http://example.com/deploy-servers/staging; }
 }
 
 role_production() {
@@ -65,17 +74,30 @@ namespace_deploy() {
   task_setup() {
     local host=$1; shift
 
-    [[ -d ${deploy_to} ]] || { git clone ${repository} ${deploy_to} && git checkout ${branch}; }
+    ssh ${host} <<-EOS
+	[[ -d ${deploy_to} ]] && {
+	  echo "[WARN] already exists: ${deploy_to}"
+	} || {
+	  git clone ${repository} ${deploy_to}
+	  cd ${deploy_to}
+	  git checkout ${branch}
+	}
+	EOS
   }
 
   task_update() {
     local host=$1; shift
 
-    [[ -d ${deploy_to} ]] && {
-      cd ${deploy_to} && pwd && git fetch origin && git checkout ${branch} && git submodule update --init
-    } || {
-      echo "[WARN] directory not found : ${deploy_to}"
-    }
+    ssh ${host} <<-EOS
+	[[ -d ${deploy_to} ]] && {
+	  cd ${deploy_to}; pwd
+	  git fetch origin
+	  git checkout ${branch}
+	  git submodule update --init
+	} || {
+	  echo "[WARN] directory not found: ${deploy_to}"
+	}
+	EOS
   }
 }
 
