@@ -1,7 +1,7 @@
 # -*-Shell-script-*-
 #
-# [role]             [task]
-# [role] [namespace]:[task]
+# $ maki [role]             [task]
+# $ maki [role] [namespace]:[task]
 #
 
 export LANG=C
