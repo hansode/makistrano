@@ -20,7 +20,7 @@ function makistrano_node() {
   (task_${task} ${node} ${args})
 }
 
-function makistrano_xnode() {
+function makistrano_nodes() {
   local task=$1; shift
   local args="$@"
   [[ -n "${task}" ]] || { echo "[ERROR] Invalid argument: task:${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
@@ -64,7 +64,7 @@ function makistrano_cli() {
   [[ "${task}" == "${namespace}" ]] && namespace= || :
 
   makistrano_eval ${role} "${namespace}" "${task}" || return 1
-  makistrano_xnode ${task} ${args}
+  makistrano_nodes ${task} ${args}
 }
 
 # CLI

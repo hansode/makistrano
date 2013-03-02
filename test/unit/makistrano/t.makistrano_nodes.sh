@@ -12,13 +12,13 @@
 
 ## functions
 
-function test_makistrano_xnode() {
-  makistrano_xnode hoge >/dev/null
+function test_makistrano_nodes() {
+  makistrano_nodes hoge >/dev/null
   assertEquals $? 0
 }
 
-function test_makistrano_xnode_no_opts() {
-  makistrano_xnode 2>/dev/null
+function test_makistrano_nodes_no_opts() {
+  makistrano_nodes 2>/dev/null
   assertNotEquals $? 0
 }
 
