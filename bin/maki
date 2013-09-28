@@ -58,8 +58,8 @@ function makistrano_cli() {
   local role=$1 task=$2; shift; shift
   local namespace=${task%%:*}; task=${task##*:}
   local args="$@"
-  [[ -n "${role}"   ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
-  [[ -n "${task}"   ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
+  [[ -n "${role}" ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
+  [[ -n "${task}" ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
   [[ "${task}" == "${namespace}" ]] && namespace= || :
 
