@@ -69,5 +69,5 @@ function makistrano_cli() {
 
 # CLI
 if [[ "${BASH_SOURCE[0]##*/}" == "maki" ]]; then
-  makistrano_cli $*
+  makistrano_cli "$@"
 fi
