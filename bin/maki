@@ -27,7 +27,10 @@ function makistrano_nodes() {
   declare -f nodes >/dev/null || return 0
 
   local node
-  for node in $(nodes); do
+  local nodes=$(nodes)
+  [[ -n "${nodes}" ]] || return
+
+  for node in ${nodes}; do
     makistrano_node ${node} ${task} ${args}
   done
 }
