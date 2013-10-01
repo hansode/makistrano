@@ -27,6 +27,10 @@ role_solo() {
   ssh() { shift; [[ $# == 0 ]] && { eval $SHELL </dev/stdin; } || { eval $@; }; }
 }
 
+role_empty() {
+  nodes() { echo; }
+}
+
 role_development() {
   nodes() { curl http://example.com/deploy-servers/development; }
 }
