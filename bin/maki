@@ -28,7 +28,7 @@ function makistrano_nodes() {
 
   local node
   local nodes=$(nodes)
-  [[ -n "${nodes}" ]] || return
+  [[ -n "${nodes}" ]] || return 0
 
   for node in ${nodes}; do
     makistrano_node ${node} ${task} ${args}
