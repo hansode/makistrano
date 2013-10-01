@@ -59,6 +59,12 @@ function test_makistrano_cli_undefined_namespace() {
   done
 }
 
+function test_makistrano_cli_defined_namespace_task_with_empty_nodes() {
+  local task
+  makistrano_cli empty server:status 2>/dev/null
+  assertEquals 0 $?
+}
+
 
 ## shunit2
 
