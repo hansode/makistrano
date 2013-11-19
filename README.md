@@ -27,7 +27,7 @@ role_production() {
 }
 
 task_hostname() {
-  local host=$1; shift
+  local host=${1}; shift
 
   # local
   hostname
@@ -37,22 +37,22 @@ task_hostname() {
 
 namespace_iptables() {
   task_start() {
-    local host=$1; shift
+    local host=${1}; shift
     ssh ${host} /etc/init.d/iptables start
   }
 
   task_stop() {
-    local host=$1; shift
+    local host=${1}; shift
     ssh ${host} /etc/init.d/iptables stop
   }
 
   task_restart() {
-    local host=$1; shift
+    local host=${1}; shift
     ssh ${host} /etc/init.d/iptables restart
   }
 
   task_status() {
-    local host=$1; shift
+    local host=${1}; shift
     ssh ${host} /etc/init.d/iptables status
   }
 }
