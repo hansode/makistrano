@@ -10,8 +10,8 @@ MAKISTRANO_MAKIFILE=${MAKISTRANO_MAKIFILE:-${PWD}/Makifile}
 MAKISTRANO_ROLE=
 
 function makistrano_node() {
-  local node=$1 task=$2; shift; shift
-  local args="$@"
+  local node=${1} task=${2}; shift 2
+  local args="${@}"
   [[ -n "${node}" ]] || { echo "[ERROR] undefined node : ${node} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}" ]] || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f task_${task} >/dev/null || { echo "[ERROR] undefined task : ${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
@@ -21,8 +21,8 @@ function makistrano_node() {
 }
 
 function makistrano_nodes() {
-  local task=$1; shift
-  local args="$@"
+  local task=${1}; shift
+  local args="${@}"
   [[ -n "${task}" ]] || { echo "[ERROR] Invalid argument: task:${task} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   declare -f nodes >/dev/null || return 0
 
@@ -36,14 +36,14 @@ function makistrano_nodes() {
 }
 
 function makistrano_load_config() {
-  local file_path=$1
+  local file_path=${1}
   [[ -a "${file_path}" ]] || { echo "[ERROR] Invalid argument: file_path:${file_path} (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
   . ${file_path}
 }
 
 function makistrano_eval() {
-  local role=$1 namespace=$2 task=$3
+  local role=${1} namespace=${2} task=${3}
 
   MAKISTRANO_ROLE=${role}
   makistrano_load_config ${MAKISTRANO_MAKIFILE}
@@ -58,9 +58,9 @@ function makistrano_eval() {
 }
 
 function makistrano_cli() {
-  local role=$1 task=$2; shift; shift
+  local role=${1} task=${2}; shift 2
   local namespace=${task%%:*}; task=${task##*:}
-  local args="$@"
+  local args="${@}"
   [[ -n "${role}" ]] || { echo "[ERROR] 'role' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
   [[ -n "${task}" ]] || { echo "[ERROR] 'task' undefined (${BASH_SOURCE[0]##*/}:${LINENO})" >&2; return 1; }
 
@@ -72,5 +72,5 @@ function makistrano_cli() {
 
 # CLI
 if [[ "${BASH_SOURCE[0]##*/}" == "maki" ]]; then
-  makistrano_cli "$@"
+  makistrano_cli "${@}"
 fi

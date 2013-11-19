@@ -18,17 +18,17 @@ function setUp() {
 
 function test_makistrano_node() {
   makistrano_node node defined
-  assertEquals 0 $?
+  assertEquals 0 ${?}
 }
 
 function test_makistrano_node_no_opts() {
   makistrano_node 2>/dev/null
-  assertNotEquals 0 $?
+  assertNotEquals 0 ${?}
 }
 
 function test_makistrano_node_undefined_task() {
   makistrano_node node undefined 2>/dev/null
-  assertNotEquals 0 $?
+  assertNotEquals 0 ${?}
 }
 
 

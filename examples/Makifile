@@ -13,18 +13,18 @@ repository=https://github.com/hansode/makistrano.git
 deploy_to=${HOME}/apps/makistrano
 branch=master
 
-ssh() { local host=$1; shift; $(which ssh) -t -q ${host} $@; }
+ssh() { local host=${1}; shift; $(which ssh) -t -q ${host} ${@}; }
 
 # role
 
 role_test() {
   nodes() { echo localhost; }
-  ssh() { echo ssh $@; }
+  ssh() { echo ssh ${@}; }
 }
 
 role_solo() {
   nodes() { echo localhost; }
-  ssh() { shift; [[ $# == 0 ]] && { eval $SHELL </dev/stdin; } || { eval $@; }; }
+  ssh() { shift; [[ ${#} == 0 ]] && { eval ${SHELL} </dev/stdin; } || { eval ${@}; }; }
 }
 
 role_empty() {
@@ -47,16 +47,16 @@ role_production() {
 
 namespace_test() {
   task_shell() {
-    local host=$1; shift
+    local host=${1}; shift
 
     # local
-    eval $*
+    eval ${@}
     # remote
-    ssh ${host} $*
+    ssh ${host} ${@}
   }
 
   task_whoami() {
-    local host=$1; shift
+    local host=${1}; shift
 
     # local
     whoami
@@ -65,7 +65,7 @@ namespace_test() {
   }
 
   task_uptime() {
-    local host=$1; shift
+    local host=${1}; shift
 
     # local
     uptime
@@ -76,7 +76,7 @@ namespace_test() {
 
 namespace_deploy() {
   task_setup() {
-    local host=$1; shift
+    local host=${1}; shift
 
     ssh ${host} <<-EOS
 	[[ -d ${deploy_to} ]] && {
@@ -90,7 +90,7 @@ namespace_deploy() {
   }
 
   task_update() {
-    local host=$1; shift
+    local host=${1}; shift
 
     ssh ${host} <<-EOS
 	[[ -d ${deploy_to} ]] && {
@@ -107,33 +107,33 @@ namespace_deploy() {
 
 namespace_server() {
   task_start() {
-    local host=$1; shift
+    local host=${1}; shift
   }
 
   task_stop() {
-    local host=$1; shift
+    local host=${1}; shift
   }
 
   task_restart() {
-    local host=$1; shift
+    local host=${1}; shift
   }
 
   task_status() {
-    local host=$1; shift
+    local host=${1}; shift
   }
 }
 
 # task
 
 task_whoami() {
-  local host=$1; shift
+  local host=${1}; shift
 
   whoami
   ssh ${host} whoami
 }
 
 task_date() {
-  local host=$1; shift
+  local host=${1}; shift
 
   date
   ssh ${host} date
