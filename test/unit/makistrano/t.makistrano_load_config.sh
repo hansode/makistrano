@@ -14,12 +14,12 @@
 
 function test_makistrano_load_config_file_exists() {
   makistrano_load_config ${makifile_path} >/dev/null
-  assertEquals 0 $?
+  assertEquals 0 ${?}
 }
 
 function test_makistrano_load_config_file_not_found() {
-  makistrano_load_config ${makifile_path}.$$ >/dev/null 2>&1
-  assertNotEquals 0 $?
+  makistrano_load_config ${makifile_path}.${$} >/dev/null 2>&1
+  assertNotEquals 0 ${?}
 }
 
 ## shunit2
