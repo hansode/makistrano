@@ -1,6 +1,8 @@
-all: makistrano
+TARGETS=makistrano
+
+all: $(TARGETS)
 
 makistrano:
 	(cd $@ && make)
 
-.PHONY: makistrano
+.PHONY: $(TARGETS)
